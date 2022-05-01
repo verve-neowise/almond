@@ -1,0 +1,7 @@
+print('HelloApp')
+
+multiply = print
+
+let mult: string = 'mult' + multiply(2, 3)
+
+return mult

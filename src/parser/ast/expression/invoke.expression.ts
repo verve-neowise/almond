@@ -1,0 +1,39 @@
+import { Context, Value, Types } from "../../../runtime"
+import { Token } from "../../lexer"
+import { Visitor, Expression } from "../../node"
+import { Position } from "../../position"
+
+export default class InvokeExpression implements Expression {
+
+    constructor(
+        private target: Expression,
+        private args: Expression[],
+        public readonly position: Position
+    ) {}
+
+    get start(): Token {
+        return this.target.start
+    }
+
+    get end(): Token {
+        return this.position.end
+    }
+
+    public execute(context: Context): Value {
+        
+        let target = this.target.execute(context)
+        if (target.type == Types.Function) {
+            let args = this.args.map(arg => arg.execute(context))
+
+            context.action('InvokeExpression', this);
+            return target.value(context, args)
+        }
+        else {
+            throw new Error(`Cannot apply invoke to ${target.type}`)
+        }
+    }
+
+    visit(visitor: Visitor): void {
+        visitor.visit(this)
+    }
+}  
