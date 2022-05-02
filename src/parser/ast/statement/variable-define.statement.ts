@@ -22,7 +22,7 @@ export default class VarDeclarationStatement implements Statement {
     }
 
     execute(context: Context): void {
-        context.action('VarDeclarationStatement', this)
+        context.visualize('VarDeclarationStatement', this)
         
         let name = this.variable.text;
         if (context.isExists(name)) {

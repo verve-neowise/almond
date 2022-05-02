@@ -19,7 +19,7 @@ export default class ErrorStatement implements Statement {
     }
 
     execute(context: Context): void {
-        context.action('ErrorStatement', this)
+        context.visualize('ErrorStatement', this)
         
         throw new Error(this.message.execute(context).toString());
     }

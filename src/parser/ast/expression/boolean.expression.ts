@@ -29,7 +29,7 @@ export default class BooleanExpression implements Expression {
     }
 
     public execute(context: Context): Value {
-        context.action('BooleanExpression', this);
+        context.visualize('BooleanExpression', this);
         return new Value(Boolean(this.value.text), Types.Boolean);
     }
 }

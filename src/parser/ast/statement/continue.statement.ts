@@ -20,7 +20,7 @@ export default class ContinueStatement implements Statement {
     }
 
     execute(context: Context): void {
-        context.action('ContinueStatement', this)
+        context.visualize('ContinueStatement', this)
         
         throw new ContinueError(`Break statement at ${this.token.row}:${this.token.column}`)
     }

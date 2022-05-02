@@ -15,7 +15,9 @@ export default interface Context {
     set(name: string, value: Value): void;
     get(name: string): Value
 
-    action(name: string, node: ASTNode, values?: any[] | undefined): void;
+    action(name: string, args: any[]): void;
+
+    visualize(name: string, node: ASTNode): void;
 
     print(args: any[]): void;
 

@@ -19,7 +19,7 @@ export default class NamedBlock implements Statement {
     }
 
     execute(context: Context): void {
-        context.action('NamedBlock', this)
+        context.visualize('NamedBlock', this)
         this.statements.execute(context)
     }
 

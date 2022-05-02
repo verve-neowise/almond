@@ -1,12 +1,12 @@
 <script lang="ts">
 import Console from "./components/Console.svelte";
+import Variables from "./components/Variables.svelte";
 import Visualizer from "./components/Visualizer.svelte";
 </script>
 <main>
     <Visualizer/>
     <div class="info">
-        <div class="variables">
-        </div>
+        <Variables/>
         <Console/>
     </div>
 </main>

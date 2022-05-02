@@ -39,6 +39,7 @@ export class LexerError extends BaseError {
         public args: any[] = []
     ) { 
         super(code, args)
+        console.error('LexerError:', row, column);
     }
 }
 

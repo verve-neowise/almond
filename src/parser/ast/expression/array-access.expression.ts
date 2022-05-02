@@ -22,7 +22,7 @@ export default class ArrayAccessExpression extends Accessible implements Express
     }
 
     execute(context: Context): Value {
-        context.action('ArrayAccessExpression', this)
+        context.visualize('ArrayAccessExpression', this)
         return this.get(context)
     }
 

@@ -25,7 +25,7 @@ export default class InvokeExpression implements Expression {
         if (target.type == Types.Function) {
             let args = this.args.map(arg => arg.execute(context))
 
-            context.action('InvokeExpression', this);
+            context.visualize('InvokeExpression', this);
             return target.value(context, args)
         }
         else {

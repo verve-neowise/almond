@@ -18,7 +18,7 @@ export default class Block implements Statement {
     }
 
     execute(context: Context): void {
-        context.action('Block', this)
+        context.visualize('Block', this)
         
         for (let statement of this.statements) {
             statement.execute(context)

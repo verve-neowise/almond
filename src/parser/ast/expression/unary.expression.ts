@@ -22,7 +22,7 @@ export default class UnaryExpression implements Expression {
     }
 
     execute(context: Context): Value {
-        context.action('UnaryExpression', this)
+        context.visualize('UnaryExpression', this)
         
         let rightValue = this.right.execute(context).value;
         switch (this.operator.type) {

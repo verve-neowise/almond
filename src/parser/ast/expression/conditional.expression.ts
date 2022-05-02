@@ -23,7 +23,7 @@ export default class ConditionalExpression implements Expression {
 
 
     execute(context: Context): Value {
-        context.action('ConditionalExpression', this);
+        context.visualize('ConditionalExpression', this);
         
         let leftValue = this.left.execute(context).value;
         let rightValue = this.right.execute(context).value;

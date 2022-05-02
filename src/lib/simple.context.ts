@@ -1,33 +1,49 @@
-import { ReturnError } from "../parser/errors";
 import { Token } from "../parser/lexer";
 import { ASTNode } from "../parser/node";
 import { Context, Executable, FunctionValue, Types, Value } from "../runtime";
 import { Variable } from "../runtime/variable";
 
-export type Action = {
+export type Event = {
     name: string;
     type: 'action' | 'visualize';
-    values?: any[]
-    pos?: { start: Token; end: Token };
 }
 
-export type ActionListener = (action: Action) => void;
+export type Action = {
+    type: 'action';
+    values: any[]
+} & Event; 
+
+export type Visualize = {
+    type: 'visualize';
+    pos: { start: Token; end: Token };
+} & Event;
+
+export type EventListener = (event: Event & (Action | Visualize)) => void;
 
 export default class SimpleContext implements Context {
 
-    private actionListener: ActionListener | undefined = undefined
+    private eventListener: EventListener | undefined = undefined
 
-    constructor(actionListener?: ActionListener) {
-        this.actionListener = actionListener
+    constructor(actionListener?: EventListener) {
+        this.eventListener = actionListener
     }
 
-    action(name: string, node: ASTNode, values: any[] = undefined): void {
-        if (this.actionListener) {
-            this.actionListener({
+    visualize(name: string, node: ASTNode): void {
+        if (this.eventListener) {
+            this.eventListener({
                 name,
-                type: node ? 'visualize' : 'action',
-                values: values,
-                pos: node ? { start: node.start, end: node.end } : undefined
+                type: 'visualize',
+                pos: { start: node.start, end: node.end }
+            })
+        }
+    }
+
+    action(name: string, args: any[]): void {
+        if (this.eventListener) {
+            this.eventListener({
+                name,
+                type: 'action',
+                values: args
             })
         }
     }
@@ -37,14 +53,16 @@ export default class SimpleContext implements Context {
 
     print(args: any[]) {
         console.log(...args)
+        this.action('print', [...args])
     }
 
     return(value: Value) {
         this.result = value
-        this.action('return', undefined, ['return', value.value])
+        this.action('return', ['return', value.value])
     }
 
     declare(name: string, value: Value, type: Types, isConst: boolean): void {
+        this.action('declare', [name, value.value, type, isConst])
         this.variables.set(name, new Variable(value, type, isConst))
     }
 
@@ -61,10 +79,12 @@ export default class SimpleContext implements Context {
     }
 
     set(name: string, value: Value): void {
+        this.action('set', [name, value.value])
         this.variables.get(name)!.value = value
     }
 
     get(name: string): Value {
+        this.action('get', [name])
         return this.variables.get(name)!.value
     }
 

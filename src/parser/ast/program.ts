@@ -9,7 +9,6 @@ export default class Program {
     execute(context: Context): Value | undefined {
         try {
             this._statements.forEach(statement => statement.execute(context));
-            context.action('return', undefined);
         }
         catch(e) {
             if (e instanceof ReturnError) {

@@ -22,7 +22,7 @@ export default class TernaryExpression implements Expression {
     }
 
     execute(context: Context): Value {
-        context.action('TernaryExpression', this)
+        context.visualize('TernaryExpression', this)
         
         let result = this.result.execute(context)
         if (result.type === Types.Boolean) {

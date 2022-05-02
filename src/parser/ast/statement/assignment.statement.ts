@@ -23,7 +23,7 @@ export default class AssignmentStatement implements Statement {
     }
 
     execute(context: Context): void {
-        context.action('AssignmentStatement', this);
+        context.visualize('AssignmentStatement', this);
 
         const value = this.value.execute(context);
         let result: Value

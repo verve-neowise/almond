@@ -4,18 +4,18 @@ import { onMount } from "svelte";
 import { code } from "./code";
 import Element from "./Element.svelte";
 import { extensions, SimpleContext } from "../../lib";
-import { Action } from "../../lib/simple.context";
+import { Action, Event, Visualize } from "../../lib/simple.context";
 import Parser from "../../parser/parser";
-import { consoleStore, select } from "../store";
+import { addVariable, consoleStore, select, updateVariable } from "../store";
 
 let tokens: Token[] = []
 
-let actions: Action[] = []
+let events: (Event & (Action | Visualize))[] = []
 
 let delay = '1000'
 
-let context = new SimpleContext((action) => {
-  actions.push(action)
+let context = new SimpleContext((event) => {
+  events.push(event)
 })
 
 context.apply(extensions.stdlib)
@@ -24,7 +24,6 @@ function start() {
 
   const lexer = new Lexer(new Source(code))
   let program = new Parser(lexer.tokenize()).parse()
-  console.dir(program);
   
   try {
     program.execute(context)
@@ -34,19 +33,34 @@ function start() {
   }
 
   let lifecycle = setInterval(() => {
-    let action = actions.shift()
-    if (actions.length === 0) {
+    let event = events.shift()
+    if (events.length === 0) {
         clearInterval(lifecycle)
         return
     }
-    if (action) {
-      if (action.type === "visualize") {
-        let start = findIndex(action.pos.start)
-        let end = findIndex(action.pos.end)
+    if (event) {
+      if (event.type === "visualize") {
+        let start = findIndex(event.pos.start)
+        let end = findIndex(event.pos.end)
         select(start, end)
       }
-      else {
-        consoleStore.update(state => [...state, action.values.join(' ')])
+      else if (event.type === "action") {
+        console.log(event.name);
+        if (event.name === 'print') {
+          let result = event.values.join(' ')
+          consoleStore.update(state => [...state, result])
+        }
+        if (event.name === 'declare') {
+          addVariable({ 
+            name: event.values[0],
+            value: event.values[1],
+            type: event.values[2],
+            isConst: event.values[3],
+           })
+        }
+        if (event.name === 'set') {
+          updateVariable(event.values[0], event.values[1])
+        }
       }
     }
   }, +delay)
@@ -56,7 +70,13 @@ function findIndex(token: Token) {
   return tokens.findIndex(t => t.row === token.row && t.column === token.column)
 }
 
+let canvas: HTMLElement
+
 onMount(() => {
+    canvas.oninput = () => {
+      console.log('render');
+      render(canvas.innerText);
+    }
     render(code)
 })
 
@@ -73,7 +93,7 @@ function render(code: string) {
 
     <button on:click={start}>Start</button>
   </div>
-  <div class="canvas"> 
+  <div class="canvas" bind:this={canvas}> 
     {#each tokens as token, i}
       <Element token={token} index={i} />
     {/each}

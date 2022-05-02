@@ -26,7 +26,7 @@ export default class ForStatement implements Statement {
     }    
 
     execute(context: Context): void {
-        context.action('ForStatement', this);
+        context.visualize('ForStatement', this);
         
         let token = this.variable.variable;
         this.variable.execute(context)

@@ -22,7 +22,7 @@ export default class VariableExpression extends Accessible implements Expression
     }
 
     public execute(context: Context): Value {
-        context.action('VariableExpression', this)
+        context.visualize('VariableExpression', this)
         
         return this.get(context)
     }

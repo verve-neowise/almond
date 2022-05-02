@@ -20,7 +20,7 @@ export default class ArrayExpression implements Expression {
 
 
     execute(context: Context): Value {
-        context.action('ArrayExpression', this)
+        context.visualize('ArrayExpression', this)
         return new ArrayValue(this.elements.map(element => element.execute(context)))
     }
 

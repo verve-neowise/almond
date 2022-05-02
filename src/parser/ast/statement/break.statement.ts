@@ -20,7 +20,7 @@ export default class BreakStatement implements Statement {
     }
 
     execute(context: Context): void {
-        context.action('BreakStatement', this)
+        context.visualize('BreakStatement', this)
         
         throw new BreakError(`Break statement at ${this.token.row}:${this.token.column}`)
     }

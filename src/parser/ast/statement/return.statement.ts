@@ -16,7 +16,7 @@ export default class ReturnStatement implements Statement {
     }
 
     execute(context: Context): void {
-        context.action('ReturnStatement', this)
+        context.visualize('ReturnStatement', this)
         
         let value = this.expr.execute(context);
         context.return(value)

@@ -27,7 +27,7 @@ export default class BinaryExpression implements Expression {
     }
 
     execute(context: Context): Value {
-        context.action('BinaryExpression', this)
+        context.visualize('BinaryExpression', this)
         
         let leftValue = this.left.execute(context);
         let rightValue = this.right.execute(context);

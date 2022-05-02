@@ -20,7 +20,7 @@ export default class FieldAccessExpression implements Expression {
     }
 
     execute(context: Context): Value {
-        context.action('FieldAccessExpression', this)
+        context.visualize('FieldAccessExpression', this)
         
         let object = this.target.execute(context)
         if (object.type === Types.Object) {

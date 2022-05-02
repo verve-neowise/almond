@@ -22,7 +22,7 @@ export default class StringExpression implements Expression {
 
 
     public execute(context: Context): Value {
-        context.action('StringExpression', this);
+        context.visualize('StringExpression', this);
         
         return new Value(this.value.text, Types.String);
     }

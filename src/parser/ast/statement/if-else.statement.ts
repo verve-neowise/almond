@@ -22,7 +22,7 @@ export default class IfEseStatement implements Statement {
     }
 
     execute(context: Context): void {
-        context.action('IfEseStatement', this)
+        context.visualize('IfEseStatement', this)
         if (this.condition.execute(context).value) {
             this.block.execute(context);
         } else if (this.elseBlock) {

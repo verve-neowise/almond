@@ -19,7 +19,7 @@ export default class NumberExpression implements Expression {
     }
 
     public execute(context: Context): Value {
-        context.action('NumberExpression', this);
+        context.visualize('NumberExpression', this);
         
         return new Value(Number(this.value.text), Types.Number);
     }

@@ -18,7 +18,7 @@ export default class ConditionExpression implements Expression {
     }
 
     execute(context: Context): Value {
-        context.action('ConditionExpression', this);
+        context.visualize('ConditionExpression', this);
         let value = this.expression.execute(context);
         if (value.type === Types.Boolean) {
             return value;

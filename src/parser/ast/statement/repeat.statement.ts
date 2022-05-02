@@ -21,7 +21,7 @@ export default class RepeatStatement implements Statement {
     }
 
     execute(context: Context): void {
-        context.action('RepeatStatement', this)
+        context.visualize('RepeatStatement', this)
         
         let count = this.count ? this.count.execute(context).value : -1;
 

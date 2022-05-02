@@ -4,7 +4,7 @@ import Void from "../../runtime/value/void";
 export default (context: Context) => {
     context.function('print', (context, args) => {
         let value = (args.map(arg => arg.value))
-        context.action('print', undefined, value);
+        context.print(value)
         return new Void()
     })
 

@@ -84,7 +84,7 @@ export default class Lexer {
                 this.tokenizeOperator()
             }
             // if whitespace
-            else if (whitespaceChars.indexOf(char) >= 0 || char === ' ') {
+            else if (whitespaceChars.indexOf(char) >= 0 || char === ' ' || char.charCodeAt(0) === 160) {
                 if (this.includeWhitespaces === true) {
                     this.tokenizeWhitespace()
                 }
@@ -98,7 +98,7 @@ export default class Lexer {
                 break
             }
             else {
-                throw new LexerError('L-2010', this.source.row, this.source.column, [char])
+                throw new LexerError('L-2010', this.source.row, this.source.column, [char.charCodeAt(0)])
             }
         }
         return this.tokens
@@ -109,7 +109,7 @@ export default class Lexer {
         let current = this.source.peek(0)
 
         while(true) {
-            if (whitespaceChars.indexOf(current) === -1) {
+            if (whitespaceChars.indexOf(current) === -1 && current.charCodeAt(0) !== 160) {
                 break
             }
             this.buffer.push(current)
