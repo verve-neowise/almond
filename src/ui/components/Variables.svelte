@@ -1,48 +1,19 @@
 <script lang="ts">
-import { variables } from "../store";
-
+import { isContext } from 'vm';
+ 
+import { variables } from '../store/variable.store'
 </script>
 
-<div class="root">
-    {#each $variables as variable}
-        <div class="variable">
-            <div class="name">
-                {#if variable.isConst}
-                    <span class="lock">[!]</span>
-                {/if} 
-                {variable.name}
-                :
-                <span class="type">{variable.type}</span>
+<div class=" flex-1 border-b-2 border-black/10">
+    <h1 class="bg-white/5 p-2 flex items-center font-bold  h-10 border-b border-black/10">Variables</h1>
+    <div class="flex flex-col gap-3 p-3">
+        {#each $variables as variable} 
+            <div class="flex items-center gap-3 text-md">
+                <div class="{ variable.isConst ? 'text-blue-500' : 'text-red-500' } font-bold">
+                    {variable.isConst ? 'C' : 'V'}
+                </div>
+                {variable.name} : { variable.type } = {variable.value}
             </div>
-            <div class="value">
-                    {variable.value}
-            </div>
-        </div>
-    {/each}
+        {/each}
+    </div>
 </div>
-
-<style>
-    .root {
-        flex: 1;
-        height: 100%;
-        background-color: white;
-        color: #1d1d1d;
-    }
-    .variable {
-        display: flex;
-    }
-    .name {
-        width: 100%;
-        border-right: 1px solid #ccc;
-    }
-    .type {
-        width: 100%;
-        color: cornflowerblue;
-    }
-    .value {
-        width: 100%;
-    }
-    .lock {
-        color: red;
-    }
-</style>

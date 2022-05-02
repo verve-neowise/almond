@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Token, TokenType } from "../../parser/lexer";
-    import { selected } from "../store";
-    import { generateWhitespace, getClass } from "./utils";
+import { selected } from "../store/editor.store";
+    import { generateWhitespace, getClass } from "../utils";
 
     export let index: number = 0;
     export let token: Token
@@ -33,35 +33,3 @@
         {@html token.text} 
     {/if}
 </span>
-
-<style>
-    .start {
-        border-radius: 5px 0px 0px 5px;
-    }
-    .end {
-        border-radius: 0px 5px 5px 0px;
-    }
-    .selected {
-        background-color: #f8fa6f41;
-    }
-
-    span {
-        color: white;
-    }
-
-    .keyword {
-        color: #a27df8;
-    }
-
-    .string {
-        color: #7df8a2;
-    }
-    
-    .number {
-        color: #f6f87d;
-    }
-
-    .operator {
-        color: aqua;
-    }
-</style>

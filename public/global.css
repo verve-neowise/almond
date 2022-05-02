@@ -1,9 +1,42 @@
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap");
 
 body {
-	background-color: #1d1d1d;
-	margin: 0;
-	height: 100vh;
-	font-family: 'JetBrains Mono', monospace;
-	color: rgb(224, 224, 224);
+    background-color: #1d1d1d;
+    margin: 0;
+    height: 100vh;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: rgb(224, 224, 224);
+}
+
+.start {
+    border-radius: 5px 0px 0px 5px;
+}
+.end {
+    border-radius: 0px 5px 5px 0px;
+}
+.selected {
+    background-color: #f8fa6f41;
+}
+
+
+.keyword {
+    color: #a27df8;
+}
+
+.string {
+    color: #7df8a2;
+}
+
+.number {
+    color: #f6f87d;
+}
+
+.operator {
+    color: aqua;
+}
+
+.editor {
+    font-size: 15px;
+    line-height: 200%;
 }

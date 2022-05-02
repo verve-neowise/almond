@@ -229,7 +229,8 @@ export default class Parser {
         let result = this.logicalAnd()
         while (true) {
             if (this.match(TokenType.OR)) {
-                result = new BinaryExpression(result, this.logicalAnd(), this.last())
+                let operator = this.last()
+                result = new BinaryExpression(result, this.logicalAnd(), operator)
                 continue
             }
             break
@@ -241,7 +242,8 @@ export default class Parser {
         var result = this.equality()
         while (true) {
             if (this.match(TokenType.AND)) {
-                result = new BinaryExpression(result, this.equality(), this.last())
+                let operator = this.last()
+                result = new BinaryExpression(result, this.equality(), operator)
                 continue
             }
             break
@@ -254,7 +256,8 @@ export default class Parser {
         let result = this.conditional()
 
         if (this.match(TokenType.EQ) || this.match(TokenType.NEQ)) {
-            return new ConditionalExpression(result, this.conditional(), this.last())
+            let operator = this.last()
+            return new ConditionalExpression(result, this.conditional(), operator)
         }
         else return result
     }
@@ -263,7 +266,8 @@ export default class Parser {
         let result = this.additive()
         while(true) {
             if (this.match(TokenType.LT) || this.match(TokenType.GT) || this.match(TokenType.LEQ) || this.match(TokenType.GEQ)) {
-                result = new ConditionalExpression(result, this.additive(), this.last())
+                let operator = this.last()
+                result = new ConditionalExpression(result, this.additive(), operator)
                 continue
             }
             break
@@ -276,7 +280,8 @@ export default class Parser {
 
         while (true) {
             if (this.match(TokenType.PLUS) || this.match(TokenType.MINUS)) {
-                result = new BinaryExpression(result, this.multiplicative(), this.last())
+                let operator = this.last()
+                result = new BinaryExpression(result, this.multiplicative(), operator)
                 continue
             }
             break
@@ -288,7 +293,8 @@ export default class Parser {
         let result = this.unary()
         while (true) {
             if (this.match(TokenType.MUL) || this.match(TokenType.DIV) || this.match(TokenType.MOD)) {
-                result = new BinaryExpression(result, this.unary(), this.last())
+                let operator = this.last()
+                result = new BinaryExpression(result, this.unary(), operator)
                 continue
             }
             break
@@ -298,7 +304,8 @@ export default class Parser {
 
     private unary(): Expression {
         if (this.match(TokenType.MINUS) || this.match(TokenType.NOT)) {
-            return new UnaryExpression(this.primary(), this.last())
+            let operator = this.last()
+            return new UnaryExpression(this.primary(), operator)
         }
         else {
             return this.primary()

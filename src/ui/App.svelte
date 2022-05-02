@@ -1,35 +1,17 @@
 <script lang="ts">
-import Console from "./components/Console.svelte";
+import Navbar from "./components/Navbar.svelte";
 import Variables from "./components/Variables.svelte";
 import Visualizer from "./components/Visualizer.svelte";
+import Console from './components/Console.svelte'
+
 </script>
-<main>
-    <Visualizer/>
-    <div class="info">
-        <Variables/>
-        <Console/>
+<main class="h-full flex flex-col">
+    <Navbar/>
+    <div class="grid grid-cols-5 h-full flex-1">
+            <Visualizer/>
+            <div class="flex flex-col col-span-2 ">
+                <Variables/>
+                <Console/>
+            </div>
     </div>
 </main>
-
-<style>
-    main {
-        display: flex;
-        gap: 20px;
-        height: 80vh;
-        width: 80vw;
-        padding: 20px;
-    }
-
-    .info {
-        display: flex;
-        flex-direction: column;   
-        width: 100%;
-        height: 100%;  
-        flex: 1;   
-    }
-    .info  * {
-        flex: 1;
-        height: 100%;
-        width: 100%;
-    }
-</style>

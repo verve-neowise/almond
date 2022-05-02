@@ -1,3 +1,4 @@
+import { ReturnError } from "../parser/errors";
 import { Token } from "../parser/lexer";
 import { ASTNode } from "../parser/node";
 import { Context, Executable, FunctionValue, Types, Value } from "../runtime";
@@ -58,7 +59,8 @@ export default class SimpleContext implements Context {
 
     return(value: Value) {
         this.result = value
-        this.action('return', ['return', value.value])
+        this.action('return', [value.value])
+        throw new ReturnError('return')
     }
 
     declare(name: string, value: Value, type: Types, isConst: boolean): void {

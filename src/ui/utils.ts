@@ -1,4 +1,4 @@
-import { TokenType } from "../../parser/lexer";
+import { TokenType } from "../parser/lexer"
 
 export const colors = new Map<TokenType, string>([
     [TokenType.FOR, "keyword"],

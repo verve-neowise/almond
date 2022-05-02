@@ -1,39 +1,12 @@
 <script>
-
-import { consoleStore } from "../store";
-
-consoleStore.subscribe(() => {
-});
+import { logs } from "../store/console.store";
 
 </script>
-<h1 class="title">Console</h1>
-<div>
-    {#each $consoleStore as line}
-        <span> {line} </span>
-    {/each}
+<div class=" flex-1 ">
+    <h1 class="p-2 bg-white/5 h-10 flex items-center font-bold text-md">Console</h1>
+    <div class="console overflow-y-auto flex flex-col p-2 gap-1">
+        {#each $logs as log}
+        <span>{log}</span>
+        {/each}
+    </div>
 </div>
-
-<style>
-    .title {
-        margin: 0;
-        padding: 10px 10px;
-        background-color: rgb(170, 160, 160);
-        font-size: 16px;
-        color: #1d1d1d;
-    }
-    div {
-        flex: 1;
-        height: 100%;
-        padding: 10px;
-        background-color: #f0f0f0;
-        color: black;
-        font-family: monospace;
-        overflow: auto;
-    }
-
-    span {
-        display: block;
-        padding: 5px 2px;
-        border-bottom: 1px solid #ccc;
-    }
-</style>

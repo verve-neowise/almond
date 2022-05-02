@@ -1,4 +1,4 @@
-let a = 5
+let a: number = 5
 
 if a <= 10 {
     return 'a is less than or equal to 10'
